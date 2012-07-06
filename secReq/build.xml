@@ -1,0 +1,90 @@
+<project name="SecReq Evaluation Tool" basedir="dist" default="dist">
+
+	<property name="file.jar" value="secreqEvaluationTool.jar" />
+	<property name="file.manifest" value="manifest.jar" />
+	
+	<property name="dir.src" location="../src" />
+	<property name="dir.bin" location="../ant-tmp/bin" />
+	<property name="dir.nlputils" location="../../NLPUtils" />
+
+	<property name="dir.dist" value="dist" />
+	<property name="dir.lib" value="lib" />
+	<property name="dir.testfiles" value="testfiles" />
+
+	<path id="project.classpath">
+		<pathelement location="${dir.bin}" />
+	</path>
+	
+	<path id="libs.path">
+		<fileset dir="${dir.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="${dir.lib}" />
+		<mkdir dir="${dir.bin}" />
+	</target>
+
+	<!-- ================================= 
+          target: dist              
+         ================================= -->
+	<target name="dist" depends="jar" description="builds a ready-to-deploy zip">
+		<copy todir="." file="../stopsign2.txt" />
+		<zip destfile="../secreqEvaluation.zip" basedir="." />
+	</target>
+
+	<!-- ================================= 
+          target: jar              
+         ================================= -->
+	<target name="jar" depends="build" description="creates a jar file">
+		<manifestclasspath property="manifest.classpath" jarfile="${file.jar}">
+			<classpath refid="libs.path" />
+		</manifestclasspath>
+		
+		<manifest file="${file.manifest}" mode="update">
+			<attribute name="Class-Path" value="${manifest.classpath}"/>
+			<attribute name="Main-Class" value="gui.MainFrame"/>
+		</manifest>
+		
+		<jar destfile="${file.jar}" manifest="${file.manifest}">
+			<fileset dir="${dir.bin}" includes="**/*.class" excludes="**/*Test.class" />
+		</jar>
+	</target>
+
+	<!-- ================================= 
+          target: build              
+         ================================= -->
+	<target name="build" depends="get.resources,init" description="Compiles everything">
+		<javac srcdir="${dir.src}" destdir="${dir.bin}" debug="yes">
+			<include name="**/*.java" />
+			<exclude name="**/*Test.java" />
+			<exclude name="**/AllTests.java" />
+			<exclude name="**/*Dummy*" />
+			<classpath refid="project.classpath" />
+			<classpath refid="libs.path" />
+		</javac>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: getlibs                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="get.resources" depends="init,get.nlputils">
+		<copy todir="${dir.lib}">
+			<fileset dir="../${dir.lib}" />
+		</copy>
+		<copy todir="${dir.testfiles}">
+			<fileset dir="../${dir.testfiles}" />
+		</copy>
+	</target>
+
+	<target name="get.nlputils" description="Fetches the nlputils to 'dist'.">
+		<echo>${dir.nlputils}/build.xml</echo>
+		<ant antfile="build.xml" dir="${dir.nlputils}" target="deploy" inheritall="false">
+		</ant>
+		<copy todir="${dir.lib}">
+			<fileset dir="${dir.nlputils}/${dir.lib}" />
+		</copy>
+	</target>
+
+</project>

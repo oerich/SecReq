@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 14.3-b01 (Sun Microsystems Inc.)
+Main-Class: gui.MainFrame
+Class-Path: \dist\lib\MRJAdapter.jar \dist\lib\cglib-nodep-2.2.jar \di
+ st\lib\commons-cli-1.1.jar \dist\lib\jcalendar.jar \dist\lib\jcommon-
+ 1.0.16.jar \dist\lib\jdom.jar \dist\lib\jfreechart-1.0.13.jar \dist\l
+ ib\log4j-1.2.9.jar \dist\lib\nlputils.jar \dist\lib\truezip-6.jar
+
