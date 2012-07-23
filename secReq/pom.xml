@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>secReq</groupId>
+	<artifactId>secReq</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<developers>
+		<developer>
+			<name>Eric Knauss</name>
+			<timezone>Canada/Pacific</timezone>
+			<roles>
+				<role>Project owner</role>
+				<role>Lead developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Siv Hilde Houmb</name>
+			<timezone>Europe/Oslo</timezone>
+		</contributor>
+		<contributor>
+			<name>Shareeful Islam</name>
+			<timezone>Europe/London</timezone>
+		</contributor>
+		<contributor>
+			<name>Jan Juerjens</name>
+			<timezone>Europe/Berlin</timezone>
+		</contributor>
+		<contributor>
+			<name>Kurt Schneider</name>
+			<timezone>Europe/Berlin</timezone>
+		</contributor>
+	</contributors>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<organization>
+		<name>SecReq Team</name>
+		<url>http://www.se.uni-hannover.de/pages/en:projekte_re_secreq</url>
+	</organization>
+  <dependencies>
+  	<dependency>
+  		<groupId>jfree</groupId>
+  		<artifactId>jfreechart</artifactId>
+  		<version>1.0.13</version>
+  	</dependency>
+  </dependencies>
+  <issueManagement>
+  	<url>https://github.com/oerich/secreq/issues</url>
+  </issueManagement>
+  <scm>
+  	<url>https://github.com/oerich/secreq</url>
+  	<connection>scm:git:https://github.com/oerich/secreq.git</connection>
+  	<developerConnection>scm:git:https://github.com/oerich/secreq.git</developerConnection>
+  </scm>
+</project>
