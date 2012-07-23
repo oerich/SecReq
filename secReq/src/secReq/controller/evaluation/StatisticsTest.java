@@ -28,7 +28,7 @@ public class StatisticsTest {
 		assertEquals(0.5, this.stat.getFMeasure(), 0.01d);
 
 		assertEquals(
-				"Recall: 0,500000 | Precision: 0,500000 | F-Val: 0,500000 | Rel: 2 | Found: 2 | Relevant-Found: 1",
+				"Recall: 0.500000 | Precision: 0.500000 | F-Val: 0.500000 | Rel: 2 | Found: 2 | Relevant-Found: 1",
 				this.stat.toString());
 
 		// defaults to not including training set:
