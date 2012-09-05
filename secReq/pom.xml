@@ -56,6 +56,16 @@
   		<artifactId>jfreechart</artifactId>
   		<version>1.0.13</version>
   	</dependency>
+  	<dependency>
+  		<groupId>oerich</groupId>
+  		<artifactId>nlp-utils</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.10</version>
+  	</dependency>
   </dependencies>
   <issueManagement>
   	<url>https://github.com/oerich/secreq/issues</url>
@@ -65,4 +75,8 @@
   	<connection>scm:git:https://github.com/oerich/secreq.git</connection>
   	<developerConnection>scm:git:https://github.com/oerich/secreq.git</developerConnection>
   </scm>
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <name>secReq</name>
 </project>
