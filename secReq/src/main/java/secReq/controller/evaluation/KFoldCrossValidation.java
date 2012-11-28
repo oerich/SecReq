@@ -19,7 +19,7 @@ public class KFoldCrossValidation {
 
 	private IStopWordFilter stopwordfilter = StopWordFilterFactory.NULL_FILTER;
 	private ITokenizer tokenizer = StopWordFilterFactory
-			.createTokenizer("./stopsign2.txt");
+			.createTokenizer("./stopsigns.txt");
 	private int k;
 	private List<CategorizedRequirement>[] buckets;
 	private Statistics statistics;

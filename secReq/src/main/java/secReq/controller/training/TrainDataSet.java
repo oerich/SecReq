@@ -20,7 +20,7 @@ public class TrainDataSet implements ICommand {
 	private ICommandManager manager;
 	private String tmpFileName;
 	private ITokenizer tokenizer = StopWordFilterFactory
-			.createTokenizer("./stopsign2.txt");
+			.createTokenizer("./stopsigns.txt");
 	// private IStopWordFilter filter = StopWordFilterFactory
 	// .createStopWordFilter("./stopwords.txt");
 	private IStopWordFilter filter = StopWordFilterFactory.NULL_FILTER;
