@@ -14,7 +14,6 @@ import secReq.model.CategorizedRequirement;
 import secReq.model.ClassifierWithName;
 import secReq.model.EvaluationResultMatrix;
 
-
 public class KFoldCrossValidation {
 
 	private IStopWordFilter stopwordfilter = StopWordFilterFactory.NULL_FILTER;
@@ -31,9 +30,10 @@ public class KFoldCrossValidation {
 			.getClassicBayesClassifier();
 
 	public KFoldCrossValidation() {
-		this.statistics  = new Statistics();
+		this.statistics = new Statistics();
 		this.statistics.setIncludesTrainingSet(true);
 	}
+
 	public int getK() {
 		if (this.k <= 1)
 			return 10;
@@ -50,8 +50,8 @@ public class KFoldCrossValidation {
 		// Does this data make sense?
 		if (evalData.size() < getK())
 			throw new IllegalArgumentException(String.format(
-					"Cannot distribute %d samples over %d buckets.", evalData
-							.size(), getK()));
+					"Cannot distribute %d samples over %d buckets.",
+					evalData.size(), getK()));
 
 		// 1. Init
 		results.initEvaluationMatrix(getK());
@@ -111,8 +111,8 @@ public class KFoldCrossValidation {
 					// Evaluate optional other data:
 					for (int i = 0; i < this.otherData.length; i++) {
 						this.otherResults[i].setResultFor(evalBucketIndex,
-								trainingSize, runClassifierOn(evalBucket,
-										this.otherData[i]));
+								trainingSize,
+								runClassifierOn(evalBucket, this.otherData[i]));
 					}
 					trainingSize++;
 				}
@@ -136,25 +136,26 @@ public class KFoldCrossValidation {
 
 		try {
 			this.classifier.init(dataSet);
+
+			// Classify the evaluation set
+			for (CategorizedRequirement cr : testSet) {
+				double bayes = this.classifier.classify(cr.getRequirement());
+				if (0.9 < bayes)
+					cr.setHeuristicClassification("sec (" + bayes + ")");
+				else
+					cr.setHeuristicClassification("nonsec (" + bayes + ")");
+			}
+
+			// Compute recall and precision:
+			EvaluationResult evaluate = this.statistics.evaluate(testSet);
+			// System.out.println("#sec: " + dataSet.getCountSecReq() +
+			// ", #nonsec: "
+			// + dataSet.getCountNonSecReq() + ", result: " + evaluate);
+			return evaluate;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-
-		// Classify the evaluation set
-		for (CategorizedRequirement cr : testSet) {
-			double bayes = this.classifier.classify(cr.getRequirement());
-			if (0.9 < bayes)
-				cr.setHeuristicClassification("sec (" + bayes + ")");
-			else
-				cr.setHeuristicClassification("nonsec (" + bayes + ")");
-		}
-
-		// Compute recall and precision:
-		EvaluationResult evaluate = this.statistics.evaluate(testSet);
-		// System.out.println("#sec: " + dataSet.getCountSecReq() +
-		// ", #nonsec: "
-		// + dataSet.getCountNonSecReq() + ", result: " + evaluate);
-		return evaluate;
 	}
 
 	public IClassifier<IDataSet> getClassifier() {

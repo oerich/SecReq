@@ -1,5 +1,6 @@
 package secReq.controller.classification;
 
+import oerich.nlputils.NLPInitializationException;
 import oerich.nlputils.classifier.IClassifier;
 import oerich.nlputils.dataset.IDataSet;
 import secReq.controller.ICommand;
@@ -25,16 +26,21 @@ public abstract class AbstractClassificationCommand implements ICommand {
 
 	@Override
 	public void execute() {
-		IClassifier<IDataSet> classifier = getClassifier(getDataSet());
-		this.manager.setLastClassifier(classifier);
-		for (CategorizedRequirement cr : this.manager.getModel().getData()) {
-			double val = classifier.classify(cr.getRequirement());
-			if (val > classifier.getMatchValue())
-				cr.setHeuristicClassification("sec (" + val + ")");
-			else
-				cr.setHeuristicClassification("nonsec (" + val + ")");
+		try {
+			IClassifier<IDataSet> classifier = getClassifier(getDataSet());
+			this.manager.setLastClassifier(classifier);
+			for (CategorizedRequirement cr : this.manager.getModel().getData()) {
+				double val;
+				val = classifier.classify(cr.getRequirement());
+				if (val > classifier.getMatchValue())
+					cr.setHeuristicClassification("sec (" + val + ")");
+				else
+					cr.setHeuristicClassification("nonsec (" + val + ")");
+			}
+			this.manager.getModel().fireTableDataChanged();
+		} catch (NLPInitializationException e) {
+			e.printStackTrace();
 		}
-		this.manager.getModel().fireTableDataChanged();
 	}
 
 	protected IDataSet getDataSet() {

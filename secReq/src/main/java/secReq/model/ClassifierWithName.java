@@ -4,13 +4,13 @@ import java.util.Random;
 
 import javax.swing.table.TableModel;
 
+import oerich.nlputils.NLPInitializationException;
 import oerich.nlputils.classifier.BayesianFilter;
 import oerich.nlputils.classifier.GroundedBayesianFilter;
 import oerich.nlputils.classifier.IBayesianFilter;
 import oerich.nlputils.classifier.IClassifier;
 import oerich.nlputils.classifier.TFxIDF;
 import oerich.nlputils.dataset.IDataSet;
-
 
 public class ClassifierWithName implements IClassifier<IDataSet> {
 
@@ -174,7 +174,7 @@ public class ClassifierWithName implements IClassifier<IDataSet> {
 	}
 
 	@Override
-	public double classify(String text) throws IllegalArgumentException {
+	public double classify(String text) throws NLPInitializationException {
 		return this.delegate.classify(text);
 	}
 
@@ -184,7 +184,7 @@ public class ClassifierWithName implements IClassifier<IDataSet> {
 	}
 
 	@Override
-	public boolean isMatch(String text) throws IllegalArgumentException {
+	public boolean isMatch(String text) throws NLPInitializationException {
 		return this.delegate.isMatch(text);
 	}
 
